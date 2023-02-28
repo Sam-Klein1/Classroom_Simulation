@@ -27,17 +27,17 @@ Course::Course(string crn, string cNum, string name, string department){
         }
 Course::Course(const Course &rhs) {
     // Copy the primitive member variables
-    cCrn = rhs.cCrn;
-    courseNum = rhs.courseNum;
-    courseName = rhs.courseName;
-    cDepartment = rhs.cDepartment;
-    size = rhs.size;
-    capacity = rhs.capacity;
-    // Allocate a new students array and copy the contents of the original array
-    students = new Student[capacity];
-    for (int i = 0; i < size; i++) {
-        students[i] = Student(rhs.students[i]);
-    }
+            cCrn = rhs.cCrn;
+            courseNum = rhs.courseNum;
+            courseName = rhs.courseName;
+            cDepartment = rhs.cDepartment;
+            size = rhs.size;
+            capacity = rhs.capacity;
+            // Allocate a new students array and copy the contents of the original array
+            students = new Student[capacity];
+            for (int i = 0; i < size; i++) {
+                students[i] = Student(rhs.students[i]);
+             }
 }
 Course &Course::operator=(const Course &rhs){
 
@@ -93,14 +93,19 @@ void Course::addStudent(Student student){
 }
 void Course::removeStudent(Student student){
 //found on https://stackoverflow.com/questions/22646257/remove-an-element-from-a-dynamic-array
+    
             for(int i= 0; i<size; i++){
                 if(students[i].getBnum() == student.getBnum()){
-                    Student *newStudentlist = new Student[size-1];
-                    std::copy(students, students+i, newStudentlist);
-                    std::copy(students+i+1, students+size, newStudentlist+i);
+                    Student *newStudentlist = new Student[capacity];
+                    for(int j = i; j<size-1;i++)
+                        newStudentlist[i] = students[j+1];
+                    //std::copy(students, students+i, newStudentlist);
+                    //std::copy(students+i+1, students+size, newStudentlist+i);
+                    //delete[] students;
+                    //students = newStudentlist;
+                    --size;
                     delete[] students;
                     students = newStudentlist;
-                    --size;
                 }
             }
 }
