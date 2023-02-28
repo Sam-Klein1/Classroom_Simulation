@@ -137,7 +137,7 @@ int main(){
             else if(list_of_courses.searchByCRN(strArr[2]) == -1)
                 cout << "cant find course" << endl;
             else{
-                if(list_of_students.findStudent(strArr[1])->searchCourse(strArr[2])){//if true, student is already enrolled in course
+                if(list_of_students.findStudent(strArr[1])->searchCourse(strArr[2])){//if true, student is enrolled in course
                     
                     list_of_courses.findCourse(strArr[2])->removeStudent(*list_of_students.findStudent(strArr[1]));
                     list_of_students.findStudent(strArr[1])->removeCrn(list_of_courses.findCourse(strArr[2])->getCrn());
@@ -157,7 +157,12 @@ int main(){
                 list_of_courses.findCourse(strArr[1])->showStudents();
             }
 
-            
+            /*display list_of_courses
+               display *list_of_courses.courselist
+                display *list_of_courses.courselist.students
+                display list_of_students
+                display *list_of_students.studentlist
+                display *list_of_students.studentlist.crns*/
         }
         else if(strArr[0] == "schedule"){
                 
@@ -167,9 +172,9 @@ int main(){
                 cout << "Student: " << strArr[1] << " " << list_of_students.findStudent(strArr[1])->getName() << " " << list_of_students.findStudent(strArr[1])->getSurname() << endl;
                 //get list of CRNs from student object
                 string *crns = list_of_students.findStudent(strArr[1])->getCrns();
-                int size = (int)sizeof(crns)/sizeof(crns[0]);
+                int size = list_of_students.findStudent(strArr[1])->getSize();
                 for(int i=0; i<size;i++){
-                    cout << list_of_courses.findCourse(crns[i])->getCrn() << list_of_courses.findCourse(crns[i])->getCdep() << list_of_courses.findCourse(crns[i])->getCnum() << list_of_courses.findCourse(crns[i])->getCname() << endl;
+                    cout << list_of_courses.findCourse(crns[i])->getCrn() << " " << list_of_courses.findCourse(crns[i])->getCdep() << " " << list_of_courses.findCourse(crns[i])->getCnum() << " " << list_of_courses.findCourse(crns[i])->getCname() << endl;
                 }
                 delete[] crns;
             }

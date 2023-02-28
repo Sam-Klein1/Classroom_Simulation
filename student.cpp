@@ -106,3 +106,4 @@ string* Student::getCrns(){return crns;}
 string Student::getName(){return name;}
 string Student::getSurname(){return surname;}
 string Student::getBnum(){return bnumber;}
+int Student::getSize(){return size;}

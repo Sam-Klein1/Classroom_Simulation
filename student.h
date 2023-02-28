@@ -23,6 +23,7 @@ class Student{
         string getName();
         string getBnum();
         string getSurname();
+        int getSize();
 
     private:
 
