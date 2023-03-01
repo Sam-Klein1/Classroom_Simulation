@@ -89,6 +89,7 @@ void Student::removeCrn(string crn){
                     for(int j = i; j<size-1;j++)
                         newCrns[j] = crns[j+1];
                     --size;
+                    break;
                 }
                 else{
                     newCrns[i] = crns[i];

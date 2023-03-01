@@ -99,6 +99,7 @@ void Course::removeStudent(Student student){
                     for(int j = i; j<size-1;j++)
                         newStudentlist[j] = students[j+1];
                     --size;
+                    break;
                 }
                 else{
                     newStudentlist[i] = students[i];

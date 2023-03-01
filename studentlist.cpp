@@ -48,6 +48,7 @@ void Studentlist::removeStudent(int index){
                     for(int j = i; j<size-1;j++)
                         newStudentlist[j] = studentlist[j+1];
                     --size;
+                    break;
                 }
                 else{
                     newStudentlist[i] = studentlist[i];

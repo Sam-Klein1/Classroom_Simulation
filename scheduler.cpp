@@ -114,7 +114,7 @@ int main(){
                     cout << "Success: enrolled student " << cmdLine[1] << " (" << cmdLine[2] << ") " << cmdLine[4] << ", " << cmdLine[3] << endl;
                 }
                 else 
-                    cout << "Fail: cannot enroll student, B Number exists" << endl;
+                    cout << "Fail: cannot enroll student, B Number exists" << cmdLine[1] << endl;
             }
         }
         else if(cmdLine[0] == "add"){

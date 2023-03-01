@@ -49,6 +49,7 @@ void Courselist::removeCourse(int index){
                     for(int j = i; j<size-1;j++)
                         newCourselist[j] = courselist[j+1];
                     --size;
+                    break;
                 }
                 else{
                     newCourselist[i] = courselist[i];
