@@ -4,7 +4,7 @@
 Studentlist::Studentlist(){
 
             size = 0;
-            capacity = 10;
+            capacity = 2;
             studentlist = new Student[capacity];
         }
 Studentlist::~Studentlist(){delete[] studentlist;}
@@ -26,7 +26,7 @@ void Studentlist::addStudent(Student student){
             if(size == capacity){
                 capacity = capacity*2;
                 Student *temp = new Student[capacity];
-                for(int i=0; i<capacity;i++){
+                for(int i=0; i<size;i++){
                     temp[i] = studentlist[i];
                 } 
                 temp[size] = student;
@@ -45,8 +45,8 @@ void Studentlist::removeStudent(int index){
             for(int i= 0; i<size; i++){
                 if(i == index){
                     Student *newStudentlist = new Student[capacity];
-                    for(int j = i; j<size-1;i++)
-                        newStudentlist[i] = studentlist[j+1];
+                    for(int j = i; j<size-1;j++)
+                        newStudentlist[j] = studentlist[j+1];
                     //std::copy(students, students+i, newStudentlist);
                     //std::copy(students+i+1, students+size, newStudentlist+i);
                     //delete[] students;

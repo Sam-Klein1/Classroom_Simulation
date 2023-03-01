@@ -11,7 +11,7 @@ Course::Course(){
             courseName = "";
             cDepartment = "";
             size = 0;
-            capacity = 10;
+            capacity = 2;
             students = new Student[capacity];
         }
 Course::Course(string crn, string cNum, string name, string department){
@@ -21,7 +21,7 @@ Course::Course(string crn, string cNum, string name, string department){
             courseName = name;
             cDepartment = department;
             size = 0;
-            capacity = 10;
+            capacity = 2;
             students = new Student[capacity];
 
         }
@@ -78,7 +78,7 @@ void Course::addStudent(Student student){
     if(size == capacity){
                 capacity = capacity*2;
                 Student *temp = new Student[capacity];
-                for(int i=0; i<capacity;i++){
+                for(int i=0; i<size;i++){
                     temp[i] = students[i];
                 } 
                 temp[size] = student;
@@ -97,8 +97,8 @@ void Course::removeStudent(Student student){
             for(int i= 0; i<size; i++){
                 if(students[i].getBnum() == student.getBnum()){
                     Student *newStudentlist = new Student[capacity];
-                    for(int j = i; j<size-1;i++)
-                        newStudentlist[i] = students[j+1];
+                    for(int j = i; j<size-1;j++)
+                        newStudentlist[j] = students[j+1];
                     //std::copy(students, students+i, newStudentlist);
                     //std::copy(students+i+1, students+size, newStudentlist+i);
                     //delete[] students;

@@ -46,8 +46,10 @@ int main(){
             break; //command to break out of 'menu'
 
         else if(cmdLine[0] == "build"){
-
-            if(!regex_match(cmdLine[1], regex("[0-9]{6}"))) //check crn
+            
+            if(cmdLine.size() < 5)
+                cout << "Input Error: too few arguments" << endl;
+            else if(!regex_match(cmdLine[1], regex("[0-9]{6}"))) //check crn
                 cout << "Input Error: illegal CRN" << endl;
             else if(!regex_match(cmdLine[2], regex("[A-Z]{2,4}"))) //check department
                 cout << "Input Error: illegal department" << endl;
@@ -63,23 +65,16 @@ int main(){
                         if (i != (int)cmdLine.size() - 1)
                             fullcourseName += " "; 
                 }
-                cout << fullcourseName << endl;
-                cmdLine[4] = fullcourseName;
-                cout << cmdLine[4] << endl;
-                Course course(cmdLine[1], cmdLine[3], cmdLine[4], cmdLine[2]);
+                cmdLine[4] = fullcourseName; // appends vector[4] + vector[4+1] + ... + vector[4+size] -> vector[4]
+                Course course(cmdLine[1], cmdLine[3], cmdLine[4], cmdLine[2]); //create a course obj w/ course data parsed from user
                 if(list_of_courses.searchByCRN(course.getCrn()) == -1){ // if this returns -1 then course not in courselist
-                    //add the course
+                    //then add the course to global list of courses
                     list_of_courses.addCourse(course);
-                    cout << "Success: built course ";
-                    cout << cmdLine[1] << " " << cmdLine[2] << cmdLine[3];
-                    cout << " (CRN: " << cmdLine[3] << ") : ";
-                    cout << cmdLine[4] << " " << endl;
+                    cout << "Success: built course " << cmdLine[1] << " " << cmdLine[2] << cmdLine[3] << " (CRN: " << cmdLine[3] << ") : " << cmdLine[4] << " " << endl;
                 }
                 else
                     cout << "Fail: cannot build course " << cmdLine[2] << cmdLine[3] << "(CRN: " << cmdLine[1] << "): CRN exists" << endl;
-                     
             }
-
         }
         else if(cmdLine[0] == "cancel"){
             
@@ -89,17 +84,15 @@ int main(){
             if(cmdLine.size() > 2)
                 cout << "Warning: ignoring extra argument(s)" << endl;
             if(list_of_courses.searchByCRN(cmdLine[1]) == -1)
-                cout << "Fail: cannot cancel course, CRN does not exist" << cmdLine[1] << endl;
+                cout << "Fail: cannot cancel course, CRN does not exist " << cmdLine[1] << endl;
             else{
                 int index = list_of_courses.searchByCRN(cmdLine[1]);
-
                 list_of_courses.removeCourse(index);
                 cout << "Success: cancelled course " << cmdLine[1] << endl;
             }
         }
         else if(cmdLine[0] == "enroll"){
             
-
             //Error checking
             if(cmdLine.size() < 5)
                 cout << "Input Error: too few arguments" << endl;

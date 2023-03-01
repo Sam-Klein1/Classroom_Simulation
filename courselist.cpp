@@ -4,7 +4,7 @@
 Courselist::Courselist(){
 
             size = 0;
-            capacity = 10;
+            capacity = 2;
             courselist = new Course[capacity];
         }
 Courselist::~Courselist(){delete[] courselist;}
@@ -27,7 +27,7 @@ void Courselist::addCourse(Course course){
             if(size == capacity){
                 capacity = capacity*2;
                 Course *temp = new Course[capacity];
-                for(int i=0; i<capacity;i++){
+                for(int i=0; i<size;i++){
                     temp[i] = courselist[i];
                 } 
                 temp[size] = course;
@@ -46,8 +46,8 @@ void Courselist::removeCourse(int index){
             for(int i= 0; i<size; i++){
                 if(i == index){
                     Course *newCourselist = new Course[capacity];
-                    for(int j = i; j<size-1;i++)
-                        newCourselist[i] = courselist[j+1];
+                    for(int j = i; j<size-1;j++)
+                        newCourselist[j] = courselist[j+1];
                     //std::copy(students, students+i, newCourselist);
                     //std::copy(students+i+1, students+size, newCourselist+i);
                     //delete[] students;

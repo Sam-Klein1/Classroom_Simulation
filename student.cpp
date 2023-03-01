@@ -9,7 +9,7 @@ Student::Student(){
         surname = "";
         userid = "";
         size = 0;
-        capacity = 10;
+        capacity = 2;
         crns = new string[capacity];
 
 }
@@ -21,7 +21,7 @@ Student::Student(string bnum, string uid, string n, string sn){
         surname = sn;
         userid = uid;
         size = 0;
-        capacity = 10;
+        capacity = 2;
         crns = new string[capacity];
 
 }
@@ -68,7 +68,7 @@ void Student::addCrn(string crn){
     if(size == capacity){
                 capacity = capacity*2;
                 string *temp = new string[capacity];
-                for(int i=0; i<capacity;i++){
+                for(int i=0; i<size;i++){
                     temp[i] = crns[i];
                 } 
                 temp[size] = crn;
@@ -86,8 +86,8 @@ void Student::removeCrn(string crn){
         for(int i= 0; i<size; i++){
                 if(crns[i] == crn){
                     string *newCrns = new string[capacity];
-                    for(int j = i; j<size-1;i++)
-                        newCrns[i] = crns[j+1];
+                    for(int j = i; j<size-1;j++)
+                        newCrns[j] = crns[j+1];
                     //std::copy(students, students+i, newCrns);
                     //std::copy(students+i+1, students+size, newCrns+i);
                     //delete[] students;
