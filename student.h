@@ -5,8 +5,6 @@
 
 using namespace std;
 
-class Course;
-
 class Student{
 
     public:

@@ -41,21 +41,17 @@ void Studentlist::addStudent(Student student){
             
 }
 void Studentlist::removeStudent(int index){
-//found on https://stackoverflow.com/questions/22646257/remove-an-element-from-a-dynamic-array
+
+            Student *newStudentlist = new Student[capacity];
             for(int i= 0; i<size; i++){
                 if(i == index){
-                    Student *newStudentlist = new Student[capacity];
                     for(int j = i; j<size-1;j++)
                         newStudentlist[j] = studentlist[j+1];
-                    //std::copy(students, students+i, newStudentlist);
-                    //std::copy(students+i+1, students+size, newStudentlist+i);
-                    //delete[] students;
-                    //students = newStudentlist;
                     --size;
-                    delete[] studentlist;
-                    studentlist = newStudentlist;
                 }
             }
+            delete[] studentlist;
+            studentlist = newStudentlist;
             
             // for(int i= 0; i<size; i++){
             //     if(i == index){

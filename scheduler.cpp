@@ -96,7 +96,7 @@ int main(){
             //Error checking
             if(cmdLine.size() < 5)
                 cout << "Input Error: too few arguments" << endl;
-            if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
+            else if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
                 cout << "Input Error: illegal B number" << endl;
             else if(!regex_match(cmdLine[2], regex("^[a-zA-Z][a-zA-Z0-9]+")))
                 cout << "Input Error: illegal userid" << endl;
@@ -121,8 +121,7 @@ int main(){
                 cout << "Input Error: illegal B number" << endl;
             else if(!regex_match(cmdLine[2], regex("[0-9]{6}")))
                 cout << "Input Error: illegal CRN" << endl;
-
-            if(list_of_students.searchByBnum(cmdLine[1]) == -1)
+            else if(list_of_students.searchByBnum(cmdLine[1]) == -1)
                 cout << "cant find student" << endl;
             else if(list_of_courses.searchByCRN(cmdLine[2]) == -1)
                 cout << "cant find course" << endl;
@@ -163,6 +162,8 @@ int main(){
         else if(cmdLine[0] == "roster"){
                 
             //Error checking
+            if(cmdLine.size() > 2)
+                cout << "Warning: ignoring extra arguments(s)" << endl;
             if(!regex_match(cmdLine[1], regex("[0-9]{6}")))
                 cout << "Input Error: illegal CRN" << endl;
             else if(list_of_courses.searchByCRN(cmdLine[1]) == -1)
@@ -171,31 +172,26 @@ int main(){
                 cout << "CRN: " << cmdLine[1] << endl;
                 list_of_courses.findCourse(cmdLine[1])->showStudents();
             }
-
-            /*display list_of_courses
-               display *list_of_courses.courselist
-                display *list_of_courses.courselist.students
-                display list_of_students
-                display *list_of_students.studentlist
-                display *list_of_students.studentlist.crns*/
         }
         else if(cmdLine[0] == "schedule"){
             
             //Error checking
+            if(cmdLine.size() > 2)
+                cout << "Warning: ignoring extra arguments(s)" << endl;
             if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
                 cout << "Input Error: illegal B number" << endl;
             else if(list_of_students.searchByBnum(cmdLine[1]) == -1)
-                cout << "couldnt find course" << endl;
+                cout << "couldnt find student" << endl;
             else{
                 cout << "Student: " << cmdLine[1] << " " << list_of_students.findStudent(cmdLine[1])->getName() << " " << list_of_students.findStudent(cmdLine[1])->getSurname() << endl;
                 //get list of CRNs from student object
                 string *crns = list_of_students.findStudent(cmdLine[1])->getCrns();
                 int size = list_of_students.findStudent(cmdLine[1])->getSize();
                 for(int i=0; i<size;i++){
-                    if(list_of_courses.findCourse(crns[i]) != nullptr)
+                    if(list_of_courses.findCourse(crns[i]) != nullptr){
                         cout << list_of_courses.findCourse(crns[i])->getCrn() << " " << list_of_courses.findCourse(crns[i])->getCdep() << " " << list_of_courses.findCourse(crns[i])->getCnum() << " " << list_of_courses.findCourse(crns[i])->getCname() << endl;
+                    }
                 }
-                delete[] crns;
             }
         }
         else{//unrecognized command
