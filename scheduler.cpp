@@ -32,6 +32,9 @@ int main(){
 
     while(getline(cin, userInput)){ //loop to continually ask for command and paramters 
 
+        userInput = regex_replace(userInput, regex("\\s+"), " "); //filter once
+        userInput = regex_replace(userInput, regex("^\\s+|\\s+$"), ""); //filter twice
+
         stringstream ss(userInput); //string stream object to pass thru as our source string
 
         while (getline(ss, token, ' ')){ //loop thru command and parameters
@@ -53,7 +56,7 @@ int main(){
                 cout << "Input Error: illegal CRN" << endl;
             else if(!regex_match(cmdLine[2], regex("[A-Z]{2,4}"))) //check department
                 cout << "Input Error: illegal department" << endl;
-            else if(!((stoi(cmdLine[3]) >= 100) && (stoi(cmdLine[3]) <= 700)))//check number
+            else if(!"[1-6][0-9]{2}|700")//check number
                 cout << "Input Error: illegal number" << endl; 
             else if(!regex_match(cmdLine[4], regex("(.*?)")))//check name
                 cout << "Input Error: illegal name" << endl;
@@ -98,7 +101,7 @@ int main(){
                 cout << "Input Error: too few arguments" << endl;
             else if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
                 cout << "Input Error: illegal B number" << endl;
-            else if(!regex_match(cmdLine[2], regex("^[a-zA-Z][a-zA-Z0-9]+")))
+            else if(!regex_match(cmdLine[2], regex("^[a-zA-Z][a-zA-Z0-9]*$")))
                 cout << "Input Error: illegal userid" << endl;
             else if(!regex_match(cmdLine[3], regex("[a-zA-Z]+")))
                 cout << "Input Error: illegal first name" << endl;
@@ -117,14 +120,16 @@ int main(){
         else if(cmdLine[0] == "add"){
 
             //Error checking
-            if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
+            if(cmdLine.size() < 3)
+                cout << "Input Error: too few arguments" << endl;
+            else if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
                 cout << "Input Error: illegal B number" << endl;
             else if(!regex_match(cmdLine[2], regex("[0-9]{6}")))
                 cout << "Input Error: illegal CRN" << endl;
             else if(list_of_students.searchByBnum(cmdLine[1]) == -1)
-                cout << "cant find student" << endl;
+                cout << "Cant find student" << endl;
             else if(list_of_courses.searchByCRN(cmdLine[2]) == -1)
-                cout << "cant find course" << endl;
+                cout << "Cant find course" << endl;
             else{
                 if(list_of_students.findStudent(cmdLine[1])->searchCourse(cmdLine[2]))//if true, student is already enrolled in course
                     cout << "Fail: cannot add, student " << cmdLine[1] << "already enrolled in course " << cmdLine[2] << endl;
@@ -138,15 +143,17 @@ int main(){
         else if(cmdLine[0] == "drop"){
             
             //Error checking
-            if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
+            if(cmdLine.size() < 2)
+                cout << "Input Error: too few arguments" << endl;
+            else if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
                 cout << "Input Error: illegal B number" << endl;
             else if(!regex_match(cmdLine[2], regex("[0-9]{6}")))
                 cout << "Input Error: illegal CRN" << endl;
 
-            if(list_of_students.searchByBnum(cmdLine[1]) == -1)
-                cout << "cant find student" << endl;
+            else if(list_of_students.searchByBnum(cmdLine[1]) == -1)
+                cout << "Cant find student" << endl;
             else if(list_of_courses.searchByCRN(cmdLine[2]) == -1)
-                cout << "cant find course" << endl;
+                cout << "Cant find course" << endl;
             else{
                 if(list_of_students.findStudent(cmdLine[1])->searchCourse(cmdLine[2])){//if true, student is enrolled in course
                     
@@ -162,9 +169,11 @@ int main(){
         else if(cmdLine[0] == "roster"){
                 
             //Error checking
-            if(cmdLine.size() > 2)
+            if(cmdLine.size() < 2)
+                cout << "Input Error: too few arguments" << endl;
+            else if(cmdLine.size() > 2)
                 cout << "Warning: ignoring extra arguments(s)" << endl;
-            if(!regex_match(cmdLine[1], regex("[0-9]{6}")))
+            else if(!regex_match(cmdLine[1], regex("[0-9]{6}")))
                 cout << "Input Error: illegal CRN" << endl;
             else if(list_of_courses.searchByCRN(cmdLine[1]) == -1)
                 cout << "couldnt find course" << endl;
@@ -176,9 +185,11 @@ int main(){
         else if(cmdLine[0] == "schedule"){
             
             //Error checking
-            if(cmdLine.size() > 2)
+            if(cmdLine.size() < 2)
+                cout << "Input Error: too few arguments" << endl;
+            else if(cmdLine.size() > 2)
                 cout << "Warning: ignoring extra arguments(s)" << endl;
-            if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
+            else if(!regex_match(cmdLine[1], regex("B[0-9]{8}")))
                 cout << "Input Error: illegal B number" << endl;
             else if(list_of_students.searchByBnum(cmdLine[1]) == -1)
                 cout << "couldnt find student" << endl;

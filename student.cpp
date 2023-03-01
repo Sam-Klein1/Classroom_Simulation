@@ -90,6 +90,9 @@ void Student::removeCrn(string crn){
                         newCrns[j] = crns[j+1];
                     --size;
                 }
+                else{
+                    newCrns[i] = crns[i];
+                }
             }
             delete[] crns;
             crns = newCrns;

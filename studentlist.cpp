@@ -49,20 +49,13 @@ void Studentlist::removeStudent(int index){
                         newStudentlist[j] = studentlist[j+1];
                     --size;
                 }
+                else{
+                    newStudentlist[i] = studentlist[i];
+                }
             }
             delete[] studentlist;
             studentlist = newStudentlist;
-            
-            // for(int i= 0; i<size; i++){
-            //     if(i == index){
-            //         Student *newStudentlist = new Student[size-1];
-            //         std::copy(studentlist, studentlist+i, newStudentlist);
-            //         std::copy(studentlist+i+1, studentlist+size, newStudentlist+i);
-            //         delete[] studentlist;
-            //         studentlist = newStudentlist;
-            //         --size;
-            //     }
-            // }
+        
 }
 Student* Studentlist::findStudent(string const& bnum){
 

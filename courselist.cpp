@@ -50,6 +50,9 @@ void Courselist::removeCourse(int index){
                         newCourselist[j] = courselist[j+1];
                     --size;
                 }
+                else{
+                    newCourselist[i] = courselist[i];
+                }
             }
             delete[] courselist;
             courselist = newCourselist;
